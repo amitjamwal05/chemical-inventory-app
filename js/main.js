@@ -11,11 +11,11 @@ let chemicals = [
 // Function to load data into the table
 function loadTableData() {
     const tableBody = document.querySelector("#chemicalTable tbody");
-    tableBody.innerHTML = ""; // Clear existing rows
+    tableBody.innerHTML = "";
 
     chemicals.forEach(chemical => {
         const row = document.createElement("tr");
-        row.onclick = () => selectRow(row); // Select row on click
+        row.onclick = () => selectRow(row);
         Object.values(chemical).forEach(text => {
             const cell = document.createElement("td");
             cell.textContent = text;
@@ -29,15 +29,15 @@ function loadTableData() {
 let selectedRowIndex = -1;
 function selectRow(row) {
     const rows = document.querySelectorAll("#chemicalTable tbody tr");
-    rows.forEach(r => r.classList.remove("selected")); // Remove selection from all rows
-    row.classList.add("selected"); // Highlight selected row
+    rows.forEach(r => r.classList.remove("selected"));
+    row.classList.add("selected");
     selectedRowIndex = Array.from(rows).indexOf(row);
 }
 
 // Sorting function
 function sortTable(columnIndex) {
     const table = document.getElementById("chemicalTable");
-    const rows = Array.from(table.rows).slice(1); // Exclude header row
+    const rows = Array.from(table.rows).slice(1);
 
     rows.sort((a, b) => {
         const cellA = a.cells[columnIndex].textContent;
@@ -83,7 +83,7 @@ document.getElementById("moveUp").addEventListener("click", () => {
         chemicals.splice(selectedRowIndex - 1, 0, movedRow);
         selectedRowIndex--;
         loadTableData();
-        selectRow(document.querySelectorAll("#chemicalTable tbody tr")[selectedRowIndex]); // Keep the row selected
+        selectRow(document.querySelectorAll("#chemicalTable tbody tr")[selectedRowIndex]);
     }
 });
 
@@ -99,15 +99,15 @@ document.getElementById("moveDown").addEventListener("click", () => {
         chemicals.splice(selectedRowIndex + 1, 0, movedRow);
         selectedRowIndex++;
         loadTableData();
-        selectRow(document.querySelectorAll("#chemicalTable tbody tr")[selectedRowIndex]); // Keep the row selected
+        selectRow(document.querySelectorAll("#chemicalTable tbody tr")[selectedRowIndex]);
     }
 });
 
 // Function to select a row
 function selectRow(row) {
     const rows = document.querySelectorAll("#chemicalTable tbody tr");
-    rows.forEach(r => r.classList.remove("selected")); // Remove selection from all rows
-    row.classList.add("selected"); // Highlight selected row
+    rows.forEach(r => r.classList.remove("selected")); 
+    row.classList.add("selected"); 
     selectedRowIndex = Array.from(rows).indexOf(row);
 }
 
@@ -117,7 +117,7 @@ document.getElementById("deleteRow").addEventListener("click", () => {
         if (confirm("Are you sure you want to delete this row?")) {
             chemicals.splice(selectedRowIndex, 1);
             alert("Deleted successfully!");
-            selectedRowIndex = -1; // Reset selection
+            selectedRowIndex = -1; 
             loadTableData();
         }
     }
@@ -125,13 +125,12 @@ document.getElementById("deleteRow").addEventListener("click", () => {
 
 // Refresh data functionality
 document.getElementById("refreshData").addEventListener("click", () => {
-    location.reload(); // This will reload the entire page
+    location.reload(); 
 });
 // Save data functionality
 document.getElementById("saveData").addEventListener("click", () => {
     const jsonData = JSON.stringify(chemicals, null, 2);
     console.log("Data saved:", jsonData);
-    // You can implement saving to a server or local storage here
 });
 
 // Load initial data into the table
